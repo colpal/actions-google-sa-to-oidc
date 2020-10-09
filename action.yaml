@@ -1,0 +1,17 @@
+---
+name: Google SA to OIDC
+description: >-
+  Derive an OIDC token from a Google service account for some target audience
+inputs:
+  sa_key:
+    description: Service account key from which to derive the OIDC token
+    required: true
+  target_audience:
+    description: Audience for which the OIDC token is intended
+    required: true
+outputs:
+  token:
+    description: The OIDC token
+runs:
+  using: node12
+  main: dist/main.js

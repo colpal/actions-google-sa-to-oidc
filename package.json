@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "@actions/core": "",
+    "google-auth-library": ""
+  },
+  "devDependencies": {
+    "eslint": "",
+    "eslint-config-airbnb-base": "",
+    "eslint-plugin-import": "",
+    "husky": "",
+    "webpack": "",
+    "webpack-cli": ""
+  },
+  "scripts": {
+    "build": "webpack"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build && git add dist/main.js"
+    }
+  }
+}
