@@ -9,7 +9,9 @@ async function main() {
   const credentials = JSON.parse(buffer.toString('utf8'));
   const client = await (new GoogleAuth({ credentials })).getIdTokenClient(targetAudience);
   const { Authorization } = await client.getRequestHeaders();
-  core.setOutput('token', Authorization.replace(/Bearer /g, ''));
+  const token = Authorization.replace(/Bearer /g, '');
+  core.setSecret(token);
+  core.setOutput('token', token);
 }
 
 main().catch((e) => core.setFailed(e));
