@@ -1,0 +1,19 @@
+---
+'on': push
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run colpal/actions-google-sa-to-oidc
+        id: oidc
+        uses: ./
+        with:
+          sa_key: ${{ secrets.VAULT_IAP_SA }}
+          target_audience: ${{ secrets.VAULT_IAP_CLIENT_ID }}
+
+      - run: echo "$OIDC_TOKEN"
+        env:
+          OIDC_TOKEN: ${{ steps.oidc.outputs.token }}
