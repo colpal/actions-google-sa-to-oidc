@@ -26,7 +26,9 @@ jobs:
           extraHeaders: |
             Authorization: Bearer ${{ steps.oidc.outputs.token }}
 
-      - run: test "$CHECKSUM" = "$(printf '%s' "$PASSWORD" | md5sum)"
+      - run: |
+          set -euxo pipefail
+          test "$CHECKSUM" = "$(m5sum <<< "$PASSWORD")"
         env:
           PASSWORD: ${{ steps.vault.outputs.password }}
           CHECKSUM: f0f849454b9e638f6f760df83ed72d94
