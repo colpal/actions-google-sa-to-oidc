@@ -26,6 +26,8 @@ jobs:
           extraHeaders: |
             Authorization: Bearer ${{ steps.oidc.outputs.token }}
 
-      - run: test c0dffc8c440e20271b7f586066e079c5 = $(md5sum <<< "$PASSWORD")
+      - run: |
+          printf '%s' "$PASSWORD" | md5sum
+          test c0dffc8c440e20271b7f586066e079c5 = "$(printf '%s' "$PASSWORD" | md5sum)"
         env:
           PASSWORD: ${{ steps.vault.outputs.password }}
