@@ -24,7 +24,7 @@ jobs:
           secrets: secret/data/hello-world/user-pass password
           exportEnv: false
           extraHeaders: |
-            Authorization: "Bearer ${{ steps.oidc.outputs.token }}"
+            Authorization: Bearer ${{ steps.oidc.outputs.token }}
 
       - run: test "$CHECKSUM" = "$(md5sum <<< "$PASSWORD")"
         env:
