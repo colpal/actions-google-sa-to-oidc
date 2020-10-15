@@ -28,7 +28,7 @@ jobs:
 
       - run: |
           set -euxo pipefail
-          test "$CHECKSUM" = "$(md5sum <<< "$PASSWORD")"
+          test "$EXPECTED" = "$(md5sum <<< "$PASSWORD")"
         env:
           PASSWORD: ${{ steps.vault.outputs.password }}
-          CHECKSUM: f0f849454b9e638f6f760df83ed72d94
+          EXPECTED: c0dffc8c440e20271b7f586066e079c5 -
