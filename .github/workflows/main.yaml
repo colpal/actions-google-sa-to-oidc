@@ -7,13 +7,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run colpal/actions-google-sa-to-oidc
-        id: oidc
+      - id: oidc
+        name: Run colpal/actions-google-sa-to-oidc
         uses: ./
         with:
           sa_key: ${{ secrets.VAULT_IAP_SA }}
           target_audience: ${{ secrets.VAULT_IAP_CLIENT_ID }}
 
-      - run: md5sum <<< "$OIDC_TOKEN"
+      - id: vault
+        uses: hashicorp/vault-action@v2.1.0
+        with:
+          url: https://public.vault.colpal.cloud
+          method: approle
+          roleId: 774e2757-4579-c411-4d04-68477ccf19ff
+          secretId: ${{ secrets.VAULT_SECRET_ID }}
+          secrets: secret/data/hello-world/user-pass password
+          exportEnv: false
+          extraHeaders: |
+            Authorization: ${{ steps.oidc.outputs.token }}
+
+      - run: test "$CHECKSUM" = "$(md5sum <<< "$PASSWORD")"
         env:
-          OIDC_TOKEN: ${{ steps.oidc.outputs.token }}
+          PASSWORD: ${{ steps.vault.outputs.password }}
+          CHECKSUM: f0f849454b9e638f6f760df83ed72d94
