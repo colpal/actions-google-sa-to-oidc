@@ -31,4 +31,4 @@ jobs:
           test "$EXPECTED" = "$(md5sum <<< "$PASSWORD")"
         env:
           PASSWORD: ${{ steps.vault.outputs.password }}
-          EXPECTED: c0dffc8c440e20271b7f586066e079c5 -
+          EXPECTED: c0dffc8c440e20271b7f586066e079c5  -
