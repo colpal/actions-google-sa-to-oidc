@@ -7,6 +7,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: printf '%s' "$GSA" | base64 -d | jq '.client_email,.private_key_id'
+        env:
+          GSA: ${{ secrets.VAULT_IAP_SA }}
+
       - id: oidc
         name: Run colpal/actions-google-sa-to-oidc
         uses: ./
