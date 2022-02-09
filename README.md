@@ -1,4 +1,4 @@
-# DEPRECATED: Use https://github.com/google-github-actions/auth instead
+## DEPRECATED: Use https://github.com/google-github-actions/auth instead
 
 # Google SA to OIDC - GitHub Actions
 
