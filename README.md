@@ -1,3 +1,5 @@
+# DEPRECATED: Use https://github.com/google-github-actions/auth instead
+
 # Google SA to OIDC - GitHub Actions
 
 Easily derive an OIDC token from a Google Cloud Platform service account within a GitHub Action.
